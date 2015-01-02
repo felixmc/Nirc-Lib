@@ -18,7 +18,7 @@ function IrcClient(options) {
 	});
 
 	this.connection.on("data", function(data) {
-		this.emit("data", data);
+		self.emit("data", data);
 		
 		var parts = data.split(" ");
 		

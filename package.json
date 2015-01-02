@@ -1,0 +1,21 @@
+{
+  "name": "NIRC-Lib",
+  "version": "0.0.1",
+  "description": "node event based irc client library",
+  "main": "IrcClient.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:felixmc/Nirc-Lib.git"
+  },
+  "author": "Felix Milea-Ciobanu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felixmc/Nirc-Lib/issues"
+  },
+  "homepage": "https://github.com/felixmc/Nirc-Lib",
+  "dependencies": {
+  }
+}

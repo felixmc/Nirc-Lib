@@ -1,5 +1,5 @@
 {
-  "name": "NIRC-Lib",
+  "name": "nirc-lib",
   "version": "0.0.1",
   "description": "node event based irc client library",
   "main": "IrcClient.js",

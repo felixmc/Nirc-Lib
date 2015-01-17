@@ -5,6 +5,10 @@ var util = require("util");
 
 var EventEmitter = require('events').EventEmitter;
 
+function parseUsername(parts) {
+	return parts[0].split("!")[0].slice(1);
+};
+
 function IrcClient(options) {
 	this.connection = net.connect(options.port, options.host);
 	this.connection.setEncoding("utf-8");
@@ -26,8 +30,12 @@ function IrcClient(options) {
 		
 		if (parts[0] == "PING") {
 			self.pong(parts.slice(1).join(" "));
+		} else if (parts[1] == "JOIN") {
+			self.emit("join", parseUsername(parts));
+		} else if (parts[1] == "QUIT" && parts[1] == "PART") {
+			self.emit("quit", parseUsername(parts));
 		} else if (parts[1] == "PRIVMSG") {
-			self.emit("message", parts[2].slice(1), parts[0].split("!")[0].slice(1), data.slice(data.slice(1).indexOf(":") + 2).trim());
+			self.emit("message", parts[2].slice(1), parseUsername(parts), data.slice(data.slice(1).indexOf(":") + 2).trim());
 		}
 
 	});

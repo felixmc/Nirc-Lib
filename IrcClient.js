@@ -36,15 +36,12 @@ function IrcClient(options) {
 
 util.inherits(IrcClient, EventEmitter);
 
-
 IrcClient.prototype.parseInput = function(data) {
 	var self = this;
 	
 	self.emit("data", data);
 	
 	var parts = data.split(" ");
-
-	console.error(data);
 
 	if (parts[0] == "PING") {
 		self.pong(parts.slice(1).join(" "));
@@ -56,7 +53,7 @@ IrcClient.prototype.parseInput = function(data) {
 		self.emit("quit", parseUsername(parts));
 	} else if (parts[1] == "PART") { 
 		self.emit("part", parseRoom(parts), parseUsername(parts));
-	} else if (parts[1] == "332") { // wrong chatroom
+	} else if (parts[1] == "332") {
 		self.emit("topic", parseRoom(parts, 3), data.slice(data.slice(1).indexOf(":") + 2).trim());
 	} else if (parts[1] == "353") {
 		self.emit("names", parseRoom(parts, 4), data.split(":")[2].trim().split(" "));
@@ -65,7 +62,7 @@ IrcClient.prototype.parseInput = function(data) {
 	} else if (parts[1] == "PRIVMSG") {
 		self.emit("message", parseRoom(parts), parseUsername(parts), data.slice(data.slice(1).indexOf(":") + 2).trim());
 	} else {
-		console.log("unknown: " + parts);
+		// console.log("unknown: " + parts);
 	}
 };
 

@@ -14,6 +14,7 @@ function parseRoom(parts, i) {
 }
 
 function IrcClient(options) {
+	this.config = options;
 	this.connection = net.connect(options.port, options.host);
 	this.connection.setEncoding("utf-8");
 	
@@ -58,7 +59,7 @@ IrcClient.prototype.parseInput = function(data) {
 	} else if (parts[1] == "332") { // wrong chatroom
 		self.emit("topic", parseRoom(parts, 3), data.slice(data.slice(1).indexOf(":") + 2).trim());
 	} else if (parts[1] == "353") {
-		self.emit("names", parseRoom(parts, 4), data.split(":")[2].trim());
+		self.emit("names", parseRoom(parts, 4), data.split(":")[2].trim().split(" "));
 	} else if (parts[1] == "366") {
 		self.emit("endOfNames", parseRoom(parts, 3));
 	} else if (parts[1] == "PRIVMSG") {
